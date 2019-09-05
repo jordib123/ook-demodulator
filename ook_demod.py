@@ -29,24 +29,24 @@ class ook_demod(gr.top_block):
         ##################################################
         # Command Line Arguments
         ##################################################
-		parser = argparse.ArgumentParser()
+	parser = argparse.ArgumentParser()
 		
-		# Python ook_demod.py -s 1e6 -r 4e3 -f 433.92e6 -m true
-		parser.add_argument("-s", "--samp_rate", default=1e6, help="Sample rate of software-defined radio")
-		parser.add_argument("-r", "--symbol_rate", default=4e3, help="Symbol rate of key fob")
-		parser.add_argument("-f", "--frequency", default=433.92e6, help="Listening frequency")
-		parser.add_argument("-m", "--manchester", default=True, help="Manchester decoder", type=str2bool)
-		parser.add_argument("-o", "--output", default=None, help="Output file")
+	# Python ook_demod.py -s 1e6 -r 4e3 -f 433.92e6 -m true
+	parser.add_argument("-s", "--samp_rate", default=1e6, help="Sample rate of software-defined radio")
+	parser.add_argument("-r", "--symbol_rate", default=4e3, help="Symbol rate of key fob")
+	parser.add_argument("-f", "--frequency", default=433.92e6, help="Listening frequency")
+	parser.add_argument("-m", "--manchester", default=True, help="Manchester decoder", type=str2bool)
+	parser.add_argument("-o", "--output", default=None, help="Output file")
 
-		args = parser.parse_args()
+	args = parser.parse_args()
         ##################################################
         # Variables
         ##################################################
-		self.frequency = frequency = float(args.frequency)
+	self.frequency = frequency = float(args.frequency)
         self.symbol_rate = symbol_rate = float(args.symbol_rate)
         self.samp_rate = samp_rate = float(args.sample_rate)
-		self.manchester = manchester = args.manchester
-		self.output = output = args.output
+	self.manchester = manchester = args.manchester
+	self.output = output = args.output
 
         ##################################################
         # Blocks
@@ -92,7 +92,7 @@ class ook_demod(gr.top_block):
         self.osmosdr_source_0.set_sample_rate(self.samp_rate)
         self.band_pass_filter_0.set_taps(firdes.complex_band_pass(1, self.samp_rate, 1, 50e3, 20e3, firdes.WIN_HAMMING, 6.76))
 
-	def str2bool(v):
+    def str2bool(v):
         if isinstance(v, bool):
             return v
         if v.lower() in ('yes', 'true', 't', 'y', '1'):
